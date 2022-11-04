@@ -1,7 +1,27 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { useLayoutModals } from "../hooks/layoutModals";
+import { Header } from "../components/header";
+import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <RecoilRoot>
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
+    </RecoilRoot>
+  );
 }
 
-export default MyApp
+function AppProvider({ children }) {
+  const { LayoutModals } = useLayoutModals();
+  return (
+    <div className="contents relative">
+      {LayoutModals}
+      <Header />
+      {children}
+    </div>
+  );
+}
+
+export default MyApp;
